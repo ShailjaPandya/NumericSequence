@@ -1,0 +1,48 @@
+﻿ <link rel="stylesheet" href="../../Tooltipstyle.css">
+<script>
+
+    $(document).ready(function () {
+       
+        $(".digit").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+    });
+
+
+
+</script>
+
+
+@using (Html.BeginForm("fibonacci", "Home", FormMethod.Post))
+{
+    <p>Mouse over the text below:</p>
+
+    <div class="tooltip">
+        About the program
+  <span class="tooltiptext">This program will generate fibonacci sequnce of Number 
+      <p>except:</p>
+
+      <p>1) Multiple of 3 display C </p>
+      <p>2) Multipe of 5 display E </p>
+      <p>
+          3) Multiple of both display Z
+      </p>
+  </span>
+    </div>
+    <p>Enter a number and click button.</p>   
+    <div class="editor-field">
+        @Html.TextBoxFor(x => x.Number, new { @class = "digit", @maxlength = "2", title = "Your Tooltip text goes here" })
+        <span id="errormsg"></span>
+    </div>
+    <br />
+    <input type="Submit" id="btnsubmit" value="Generate Sequence" />
+    @Html.Raw(Convert.ToString(ViewData["sequence"]));
+}
+@model NumericSequence.Models.InputModel
+@{
+    ViewBag.Title = "Index";
+}
+
